@@ -1,0 +1,33 @@
+{
+  "originHash" : "88ee6b29765b859e40db524b8930d40d12103a4e0f07e327b49c8a513ecb2e14",
+  "pins" : [
+    {
+      "identity" : "cryptoswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzyzanowskim/CryptoSwift.git",
+      "state" : {
+        "revision" : "e45a26384239e028ec87fbcc788f513b67e10d8f",
+        "version" : "1.9.0"
+      }
+    },
+    {
+      "identity" : "gzipswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/1024jp/GzipSwift",
+      "state" : {
+        "revision" : "56bf51fdd2fe4b2cf254b2cf34aede3d7caccc6c",
+        "version" : "6.1.0"
+      }
+    },
+    {
+      "identity" : "trustkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/datatheorem/TrustKit.git",
+      "state" : {
+        "revision" : "a94f27be00a9811618ff92f0d3fc40dac8211ba7",
+        "version" : "3.0.7"
+      }
+    }
+  ],
+  "version" : 3
+}
