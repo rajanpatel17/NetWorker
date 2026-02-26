@@ -7,14 +7,12 @@ import Foundation
 import ObjectiveC
 import Gzip
 import TrustKit
-#if canImport(UIKit)
 import UIKit
-#endif
 
 class RuntimeClass {
-   @objc dynamic func runtimeModifiedFunction()-> Int {
-       return 1
-   }
+    @objc dynamic func runtimeModifiedFunction()-> Int {
+        return 1
+    }
 }
 
 fileprivate let kAES_SecretKey = BaseUrl.shared.kAES_SecretKey
@@ -22,25 +20,24 @@ fileprivate let isEncryptionEnable = BaseUrl.shared.isEncryptionEnable
 fileprivate let isPinned = BaseUrl.shared.isPinned
 public class NetWorker: NSObject, URLSessionDelegate {
     
-// MARK: TrustKit Pinning Reference
-        
-//    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-//            
-////             Call into TrustKit here to do pinning validation
-//            if TrustKit.sharedInstance().pinningValidator.handle(challenge, completionHandler: completionHandler) == false {
-////                 TrustKit did not handle this challenge: perhaps it was not for server trust
-////                 or the domain was not pinned. Fall back to the default behavior
-//                completionHandler(.performDefaultHandling, nil)
-//            }
-//        }
+    // MARK: TrustKit Pinning Reference
+    //    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+    //
+    ////             Call into TrustKit here to do pinning validation
+    //            if TrustKit.sharedInstance().pinningValidator.handle(challenge, completionHandler: completionHandler) == false {
+    ////                 TrustKit did not handle this challenge: perhaps it was not for server trust
+    ////                 or the domain was not pinned. Fall back to the default behavior
+    //                completionHandler(.performDefaultHandling, nil)
+    //            }
+    //        }
     
     public static var sessionID: String? //{
-//        get {
-//            UserDefaults.standard.string(forKey: "sessionID") ?? ""
-//        } set {
-//            UserDefaults.standard.set(newValue, forKey: "sessionID")
-//        }
-//    }
+    //        get {
+    //            UserDefaults.standard.string(forKey: "sessionID") ?? ""
+    //        } set {
+    //            UserDefaults.standard.set(newValue, forKey: "sessionID")
+    //        }
+    //    }
     
     public static var isSessionExpired: Bool = false
     public static var isServerSessionExpired: Bool = false
@@ -54,25 +51,25 @@ public class NetWorker: NSObject, URLSessionDelegate {
     public var showHud: () -> () = {}
     public var hideHud: () -> () = {}
     public var showMessageToUser: ((String) -> ())?
-//    public var showAlertMessage
+    //    public var showAlertMessage
     private var invalidDataRetryCounter: Int = 0
     //    private let apiProvider = MoyaProvider<OneAppAuth>(plugins: [NetworkLoggerPlugin()])
     
     func obfuscationFunction(_ input: UInt8) -> UInt8 {
         return input ^ 0x55
     }
-
+    
     func deobfuscationFunction(_ input: UInt8) -> UInt8 {
         return input ^ 0x55
     }
-
+    
     func ZAfrXCsS() {}
     
     func obfuscatedKey(forKey: Int) -> String {
         // Apply the obfuscation function to the original key parts
         let obfuscator = Obfuscator()
         var obfuscatedKeyPart1 = NumberOneData.map(obfuscationFunction)
-
+        
         switch forKey {
         case 3:
             obfuscatedKeyPart1 = NumberThreeData.map(obfuscationFunction)
@@ -105,36 +102,36 @@ public class NetWorker: NSObject, URLSessionDelegate {
         return key1
     }
     
-   /* func testWatchpoint() -> Bool{
-        var ptr = malloc(9)
-        var count = 3
-        return IOSSecuritySuite.hasWatchpoint()
-    }
-    */
+    /* func testWatchpoint() -> Bool{
+     var ptr = malloc(9)
+     var count = 3
+     return IOSSecuritySuite.hasWatchpoint()
+     }
+     */
     func checkSecurityHooking() -> Bool {
-      /*  let test = RuntimeClass.init()
-        test.runtimeModifiedFunction()
-        let dylds = ["UIKit"]
+        /*  let test = RuntimeClass.init()
+         test.runtimeModifiedFunction()
+         let dylds = ["UIKit"]
+         
+         let amIRuntimeHooked: Bool = IOSSecuritySuite.amIRuntimeHooked(dyldWhiteList: dylds, detectionClass: RuntimeClass.self, selector: #selector(RuntimeClass.runtimeModifiedFunction), isClassMethod: false)
+         func msHookReturnFalse(takes: Int) -> Bool {
+         /// add breakpoint at here to test `IOSSecuritySuite.hasBreakpointAt`
+         return false
+         }
+         
+         typealias FunctionType = @convention(thin) (Int) -> (Bool)
+         func getSwiftFunctionAddr(_ function: @escaping FunctionType) -> UnsafeMutableRawPointer {
+         return unsafeBitCast(function, to: UnsafeMutableRawPointer.self)
+         }
+         let funcAddr = getSwiftFunctionAddr(msHookReturnFalse)
+         */
         
-        let amIRuntimeHooked: Bool = IOSSecuritySuite.amIRuntimeHooked(dyldWhiteList: dylds, detectionClass: RuntimeClass.self, selector: #selector(RuntimeClass.runtimeModifiedFunction), isClassMethod: false)
-        func msHookReturnFalse(takes: Int) -> Bool {
-            /// add breakpoint at here to test `IOSSecuritySuite.hasBreakpointAt`
-            return false
-        }
-        
-        typealias FunctionType = @convention(thin) (Int) -> (Bool)
-        func getSwiftFunctionAddr(_ function: @escaping FunctionType) -> UnsafeMutableRawPointer {
-            return unsafeBitCast(function, to: UnsafeMutableRawPointer.self)
-        }
-        let funcAddr = getSwiftFunctionAddr(msHookReturnFalse)
-          */
-        
-     /*   if IOSSecuritySuite.amIRunInEmulator() || IOSSecuritySuite.amIDebugged() || IOSSecuritySuite.hasBreakpointAt(funcAddr, functionSize: nil) || testWatchpoint() || IOSSecuritySuite.amIReverseEngineered() || IOSSecuritySuite.amIMSHooked(funcAddr)
-            //|| amIRuntimeHooked || IOSSecuritySuite.amITampered([.bundleID("com.mintoak.hdfc")]).result {
-            {
-            status = true
-        }
-        */
+        /*   if IOSSecuritySuite.amIRunInEmulator() || IOSSecuritySuite.amIDebugged() || IOSSecuritySuite.hasBreakpointAt(funcAddr, functionSize: nil) || testWatchpoint() || IOSSecuritySuite.amIReverseEngineered() || IOSSecuritySuite.amIMSHooked(funcAddr)
+         //|| amIRuntimeHooked || IOSSecuritySuite.amITampered([.bundleID("com.mintoak.hdfc")]).result {
+         {
+         status = true
+         }
+         */
         if !isPinned {
             return false
         }
@@ -150,22 +147,22 @@ public class NetWorker: NSObject, URLSessionDelegate {
     public init(alertCompletion: @escaping ((String) -> ())) {
         super.init()
         
-
-//        if self.checkSecurityHooking() {
-//            let alert = UIAlertController(title: "Alert!", message: "Your device is not secured", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: {
-//                action in
-//                exit(0)
-//            }))
-//
-//            guard let vc = UIApplication.shared.keyWindow?.rootViewController else {
-//                return
-//            }
-//
-//            vc.present(alert, animated: true)
-//            return
-//        }
-
+        
+        //        if self.checkSecurityHooking() {
+        //            let alert = UIAlertController(title: "Alert!", message: "Your device is not secured", preferredStyle: .alert)
+        //            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: {
+        //                action in
+        //                exit(0)
+        //            }))
+        //
+        //            guard let vc = UIApplication.shared.keyWindow?.rootViewController else {
+        //                return
+        //            }
+        //
+        //            vc.present(alert, animated: true)
+        //            return
+        //        }
+        
         self.showMessageToUser = alertCompletion
         //SSL Pining
         TrustKit.setLoggerBlock { (message) in
@@ -179,7 +176,7 @@ public class NetWorker: NSObject, URLSessionDelegate {
                 "uat-4.mintoak.com": [
                     kTSKEnforcePinning: true,
                     kTSKIncludeSubdomains: true,
-//                    kTSKExpirationDate: "2024-12-01",
+                    //                    kTSKExpirationDate: "2024-12-01",
                     kTSKPublicKeyHashes: [
                         //                        "jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=",
                         //                        "Vjs8r4z+80wjNcr1YKepWQboSIRi63WsWXhIMN+eWys="
@@ -198,7 +195,7 @@ public class NetWorker: NSObject, URLSessionDelegate {
                 "hdfcmmp.mintoak.com" : [
                     kTSKEnforcePinning: true,
                     kTSKIncludeSubdomains: true,
-//                    kTSKExpirationDate: "2024-12-01",
+                    //                    kTSKExpirationDate: "2024-12-01",
                     kTSKPublicKeyHashes: [
                         //                        "++MBgDH5WGvL9Bcn5Be30cRcL0f5O+NyoXuWtQdX1aI=",
                         //                        "f0KW/FtqTjs108NpYj42SrGvOB2PpxIVM8nWxjPqJGE=",
@@ -216,27 +213,27 @@ public class NetWorker: NSObject, URLSessionDelegate {
         ] as [String : Any]
         
         if isPinned{
-//        #if DEBUG
-//        TrustKit.initSharedInstance(withConfiguration: trustKitConfigUAT)
-//        #else
-//            TrustKit.initSharedInstance(withConfiguration: trustKitConfigProduction)
-//        #endif
+            //        #if DEBUG
+            //        TrustKit.initSharedInstance(withConfiguration: trustKitConfigUAT)
+            //        #else
+            //            TrustKit.initSharedInstance(withConfiguration: trustKitConfigProduction)
+            //        #endif
         }
         
     }
-  /*
-    func someFunction(takes: Int) -> Bool {
-        return false
-    }
-
-    // Defining FunctionType : @convention(thin) indicates a “thin” function reference, which uses the Swift calling convention with no special “self” or “context” parameters.
-    typealias FunctionType = @convention(thin) (Int) -> (Bool)
-
-    // Getting pointer address of function we want to verify
-    func getSwiftFunctionAddr(_ function: @escaping FunctionType) -> UnsafeMutableRawPointer {
-        return unsafeBitCast(function, to: UnsafeMutableRawPointer.self)
-    }
-    */
+    /*
+     func someFunction(takes: Int) -> Bool {
+     return false
+     }
+     
+     // Defining FunctionType : @convention(thin) indicates a “thin” function reference, which uses the Swift calling convention with no special “self” or “context” parameters.
+     typealias FunctionType = @convention(thin) (Int) -> (Bool)
+     
+     // Getting pointer address of function we want to verify
+     func getSwiftFunctionAddr(_ function: @escaping FunctionType) -> UnsafeMutableRawPointer {
+     return unsafeBitCast(function, to: UnsafeMutableRawPointer.self)
+     }
+     */
     func showAlert(message: String) {
         if message != ""{
             if message == "Invalid server response."{
@@ -250,29 +247,31 @@ public class NetWorker: NSObject, URLSessionDelegate {
     }
     
     /*func eWbNCSbe() -> Int {
-        let createTrustFunc = dlsym(UnsafeMutableRawPointer(bitPattern: -2), "tls_helper_create_peer_trust")
-        if createTrustFunc == nil {
-            // Unable to find symbol, assume function is hooked.
-            return 1
-        }
-
-        let createTrustFuncAddr = createTrustFunc!
-
-        // Verify if one of first three instructions is an unconditional branch
-        // to register (BR Xn), unconditional branch with link to register
-        // (BLR Xn), return (RET).
-        for i in 0..<3 {
-            let opCode = createTrustFuncAddr.load(fromByteOffset: i*MemoryLayout<UInt32>.size, as: UInt32.self) & 0xfffffc1f
-            if opCode == 0xD61F0000 {
-                // Instruction found, function is hooked.
-                return 1
-            }
-        }
-        // Function is not hooked through a trampoline.
-        return 0
-    }*/
+     let createTrustFunc = dlsym(UnsafeMutableRawPointer(bitPattern: -2), "tls_helper_create_peer_trust")
+     if createTrustFunc == nil {
+     // Unable to find symbol, assume function is hooked.
+     return 1
+     }
+     
+     let createTrustFuncAddr = createTrustFunc!
+     
+     // Verify if one of first three instructions is an unconditional branch
+     // to register (BR Xn), unconditional branch with link to register
+     // (BLR Xn), return (RET).
+     for i in 0..<3 {
+     let opCode = createTrustFuncAddr.load(fromByteOffset: i*MemoryLayout<UInt32>.size, as: UInt32.self) & 0xfffffc1f
+     if opCode == 0xD61F0000 {
+     // Instruction found, function is hooked.
+     return 1
+     }
+     }
+     // Function is not hooked through a trampoline.
+     return 0
+     }*/
     
-    private func requestFromAuth(_ auth: AppAuth) -> (request: URLRequest, key: String, iv: String) {
+    private func requestFromAuthType(_ authType: AuthCustome) -> (request: URLRequest, key: String, iv: String) {
+        
+        let auth = convert(auth: authType)
         
         let key = auth.encryptionType == .RSA_AES ? randomString(length: 16) : kAES_SecretKey
         let iv = randomString(length: 16)
@@ -282,21 +281,28 @@ public class NetWorker: NSObject, URLSessionDelegate {
         let params: Any = {
             if auth.params1.count == 0 {
                 return isEncryptionEnable && auth.isRequestEncrypted
-                    ? (auth.encryptionType == .RSA_AES
-                        ? RSA_AES_CryptoHelper.getPayload(forParams: auth.params, aesKey: key, aesIV: iv)
-                        : AES_CryptoHelper.getPayload(forParams: auth.params, aesKey: key, aesIV: iv))
-                    : auth.params
+                ? (auth.encryptionType == .RSA_AES
+                   ? RSA_AES_CryptoHelper.getPayload(forParams: auth.params, aesKey: key, aesIV: iv)
+                   : AES_CryptoHelper.getPayload(forParams: auth.params, aesKey: key, aesIV: iv))
+                : auth.params
             } else {
                 return isEncryptionEnable && auth.isRequestEncrypted
-                    ? (auth.encryptionType == .RSA_AES
-                        ? RSA_AES_CryptoHelper.getPayload1(forParams: auth.params1, aesKey: key, aesIV: iv)
-                        : AES_CryptoHelper.getPayload1(forParams: auth.params1, aesKey: key, aesIV: iv))
-                    : auth.params1
+                ? (auth.encryptionType == .RSA_AES
+                   ? RSA_AES_CryptoHelper.getPayload1(forParams: auth.params1, aesKey: key, aesIV: iv)
+                   : AES_CryptoHelper.getPayload1(forParams: auth.params1, aesKey: key, aesIV: iv))
+                : auth.params1
             }
         }()
         let headers = auth.headers
         
         let body = (try? JSONSerialization.data(withJSONObject: params, options: [])) ?? Data()
+        
+        //        let payload = (params["PAYLOAD"] as? String ?? "").data(using: .utf8) ?? Data()
+        //        let payloadBase64 = Data(base64Encoded: body) ?? Data()
+        //        let payloadString = String(data: payloadBase64, encoding: .utf8) ?? ""
+        //        let decrypted = CryptoHelper.decrypt(payload: payloadBase64, aesKey: key, aesIV: iv)
+        //        let decyptedString = String(data: decrypted, encoding: .utf8) ?? String()
+        //        print(decyptedString)
         
         var request = URLRequest(url: url)
         request.httpMethod = method
@@ -308,34 +314,47 @@ public class NetWorker: NSObject, URLSessionDelegate {
         print("Headers - \(request.allHTTPHeaderFields ?? [:])")
         
         return (request: request, key: key, iv: iv)
+        //        return (request: request, key: "", iv: "")
     }
     
-    public var refreshAuth: AppAuth?
-
-    public func callAPIService <T: Codable> (isShowLoader:Bool = true, type: AppAuth, completion: @escaping (T?) -> Void) {
+    public func callAPIService <T: Codable> (isShowLoader:Bool = true, type: AuthCustome, completion: @escaping (T?) -> Void) {
         if !isConnectionAvailable(){
             if NetWorker.isShowNoInternet{
                 NetWorker.isShowNoInternet = false
                 showAlert(message: "No internet!")
             }
         }else{
-
+            
             let result = isSSLHooked()
             if result == 1 {
                 return
             } else {
                 print("SSL function is not hooked.")
             }
-
-            if RSA_AES_CryptoHelper.rsaPublicKey == "" && refreshAuth != nil {
-                self.refreshAppKey(auth: refreshAuth!) {
+            
+            //            if self.checkSecurityHooking() {
+            //                let alert = UIAlertController(title: "Alert!", message: "Your device is not secured", preferredStyle: .alert)
+            //                alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: {
+            //                    action in
+            //                   exit(0)
+            //                }))
+            //
+            //                guard let vc = UIApplication.shared.keyWindow?.rootViewController else {
+            //                    return
+            //                }
+            //
+            //                vc.present(alert, animated: true)
+            //                return
+            //            }
+            
+            if RSA_AES_CryptoHelper.rsaPublicKey == ""{
+                self.refreshAppKey {
                     NetWorker.isServerSessionExpired = false
                     self.callAPIService(type: type, completion: completion)
                 }
-                return
             }
-
-            let tuple = requestFromAuth(type)
+            
+            let tuple = requestFromAuthType(type)
             let request = tuple.request
             let key = tuple.key
             let iv = tuple.iv
@@ -378,9 +397,9 @@ public class NetWorker: NSObject, URLSessionDelegate {
                             }
                             print("--- Entering Response ---")
                             let responseString = String(data: data ?? Data(), encoding: .utf8) ?? ""
-
+                            
                             print(responseString)
-
+                            
                             guard !responseString.isEmpty else {
                                 if NetWorker.isServerSessionExpired {
                                     print("************************ Recall Api after generating New Key ***********************")
@@ -391,19 +410,15 @@ public class NetWorker: NSObject, URLSessionDelegate {
                                 completion(nil)
                                 return
                             }
-
+                            
                             if let unencryptedResponse = try? JSONSerialization.jsonObject(with: responseString.data(using: .utf8) ?? Data(), options: []) as? [String: Any] {
                                 let errorCode = unencryptedResponse["errorCode"] as? String
-
+                                
                                 if errorCode == "E105" {
                                     NetWorker.isServerSessionExpired = true
-                                    if let refreshAuth = self.refreshAuth {
-                                        self.refreshAppKey(auth: refreshAuth) {
-                                            NetWorker.isServerSessionExpired = false
-                                            self.callAPIService(type: type, completion: completion)
-                                        }
-                                    } else {
-                                        self.showAlert(message: "Session expired. Please retry.")
+                                    self.refreshAppKey {
+                                        NetWorker.isServerSessionExpired = false
+                                        self.callAPIService(type: type, completion: completion)
                                     }
                                 } else {
                                     if let respMessage = unencryptedResponse["respMessage"] as? String, !respMessage.isEmpty {
@@ -427,7 +442,7 @@ public class NetWorker: NSObject, URLSessionDelegate {
                                     decompressedData = decrypted
                                 }
                                 do  {
-
+                                    
                                     let decodedData = try JSONDecoder().decode(T.self, from: decompressedData)
                                     print(" decompressedData 343432343===>>> ", decodedData)
                                     if isShowLoader{
@@ -456,9 +471,9 @@ public class NetWorker: NSObject, URLSessionDelegate {
                                 } else {
                                     print("--- Entering Response ---")
                                     let responseString = String(data: data ?? Data(), encoding: .utf8) ?? ""
-
+                                    
                                     print(responseString)
-
+                                    
                                     if responseString.isEmpty {
                                         if NetWorker.isServerSessionExpired{
                                             print("************************ Recall Api after genrating New Key ***********************")
@@ -471,19 +486,15 @@ public class NetWorker: NSObject, URLSessionDelegate {
                                             }
                                         }
                                     }
-
+                                    
                                     if let unencryptedResponse = try? JSONSerialization.jsonObject(with: responseString.data(using: .utf8) ?? Data(), options: []) as? [String: Any] {
                                         let errorCode = unencryptedResponse["errorCode"] as? String
-
+                                        
                                         if errorCode == "E105" {
                                             NetWorker.isServerSessionExpired = true
-                                            if let refreshAuth = self.refreshAuth {
-                                                self.refreshAppKey(auth: refreshAuth) {
-                                                    NetWorker.isServerSessionExpired = false
-                                                    self.callAPIService(type: type, completion: completion)
-                                                }
-                                            } else {
-                                                self.showAlert(message: "Session expired. Please retry.")
+                                            self.refreshAppKey {
+                                                NetWorker.isServerSessionExpired = false
+                                                self.callAPIService(type: type, completion: completion)
                                             }
                                         } else {
                                             decompressedData = data ?? Data()
@@ -503,33 +514,47 @@ public class NetWorker: NSObject, URLSessionDelegate {
             }.resume()
         }
     }
-
-
-    public func callAPIService (isShowLoader:Bool = true, type: AppAuth, completion: @escaping (_ data: Data?, _ respose: URLResponse?, _ error: Error?) -> Void) {
+    
+    
+    public func callAPIService (isShowLoader:Bool = true, type: AuthCustome, completion: @escaping (_ data: Data?, _ respose: URLResponse?, _ error: Error?) -> Void) {
         if !isConnectionAvailable(){
             if NetWorker.isShowNoInternet{
                 NetWorker.isShowNoInternet = false
                 showAlert(message: "No internet!")
             }
         }else{
-
+            
             let result = isSSLHooked()
             if result == 1 {
                 return
             } else {
                 print("SSL function is not hooked.")
             }
-
-            if RSA_AES_CryptoHelper.rsaPublicKey == "" && refreshAuth != nil {
-                self.refreshAppKey(auth: refreshAuth!) {
+            
+            //            if self.checkSecurityHooking() {
+            //                let alert = UIAlertController(title: "Alert!", message: "Your device is not secured", preferredStyle: .alert)
+            //                alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: {
+            //                    action in
+            //                   exit(0)
+            //                }))
+            //
+            //                guard let vc = UIApplication.shared.keyWindow?.rootViewController else {
+            //                    return
+            //                }
+            //
+            //                vc.present(alert, animated: true)
+            //                return
+            //            }
+            
+            if RSA_AES_CryptoHelper.rsaPublicKey == ""{
+                self.refreshAppKey {
                     NetWorker.isServerSessionExpired = false
                     self.callAPIService(type: type, completion: completion)
                 }
-                return
             }
-
-            let tuple = requestFromAuth(type)
-
+            
+            let tuple = requestFromAuthType(type)
+            
             let request = tuple.request
             let key = tuple.key
             let iv = tuple.iv
@@ -550,12 +575,12 @@ public class NetWorker: NSObject, URLSessionDelegate {
                             if isShowLoader{
                                 self.hideHud()
                             }
-                                if !NetWorker.isSessionExpired{
-                                    NetWorker.isSessionExpired = true
-                                    NetWorker.sessionID = ""
-                                    AnalyticsUtilites.shared.sessionId = ""
-                                    self.sessionTimeout()
-                                }
+                            if !NetWorker.isSessionExpired{
+                                NetWorker.isSessionExpired = true
+                                NetWorker.sessionID = ""
+                                AnalyticsUtilites.shared.sessionId = ""
+                                self.sessionTimeout()
+                            }
                             return
                         } else if httpResponseCode == 502 {
                             if isShowLoader{
@@ -564,17 +589,17 @@ public class NetWorker: NSObject, URLSessionDelegate {
                             print("Server Error ==>> ", response, "  ==== ", request)
                             self.showAlert(message: "Server Error")
                         }
-
-
+                        
+                        
                         print("--- Entering Response ---")
                         //                    let responseString = String(data: data ?? Data(), encoding: .utf8) ?? ""
                         let stringResponse = String(data: data ?? Data(), encoding: .utf8)
                         let base64Response = data?.base64EncodedString()
-
+                        
                         let responseString = ((stringResponse ?? "").isEmpty ? base64Response : stringResponse) ?? ""
-
+                        
                         print(responseString)
-
+                        
                         if responseString.isEmpty {
                             if isShowLoader{
                                 self.hideHud()
@@ -590,43 +615,37 @@ public class NetWorker: NSObject, URLSessionDelegate {
                                 }
                             }
                         }
-
+                        
                         if let unencryptedResponse = try? JSONSerialization.jsonObject(with: responseString.components(separatedBy: "==").last?.data(using: .utf8) ?? Data(), options: []) as? [String: Any] {
-
+                            
                             let errorCode = unencryptedResponse["errorCode"] as? String
                             let respMessage = unencryptedResponse["respMessage"] as? String
                             let sessionExpCode = unencryptedResponse["statusCode"] as? String
                             let statusCode = unencryptedResponse["statusCode"] as? Int ?? 0
                             let message = unencryptedResponse["message"] as? String ?? ""
-
+                            
                             if isShowLoader{
                                 self.hideHud()
                             }
                             if errorCode == "E105" || sessionExpCode == "E105"{
                                 NetWorker.isServerSessionExpired = true
-                                if let refreshAuth = self.refreshAuth {
-                                    self.refreshAppKey(auth: refreshAuth) {
-                                        NetWorker.isServerSessionExpired = false
-                                        self.callAPIService(type: type, completion: completion)
-                                    }
-                                } else {
-                                    self.showAlert(message: "Session expired. Please retry.")
-                                    completion(data, response, error)
+                                self.refreshAppKey {
+                                    NetWorker.isServerSessionExpired = false
+                                    self.callAPIService(type: type, completion: completion)
                                 }
                             } else if statusCode == 200 {
                                 print("Swiftie Authenticate User \(message)")
-                                completion(data, response, error)
                             } else {
                                 self.showAlert(message: respMessage ?? "")
-                                completion(data, response, error)
                             }
+                            completion(data, response, error)
                         } else {
                             let data1 = responseString.data(using: .utf8) ?? Data()
-
+                            
                             let payloadBase64 = Data(base64Encoded: data1) ?? Data()
-
+                            
                             let decrypted = RSA_AES_CryptoHelper.decrypt(payload: payloadBase64, aesKey: key, aesIV: iv)
-
+                            
                             if decrypted.count == 0 {
                                 if isShowLoader{
                                     self.hideHud()
@@ -652,12 +671,11 @@ public class NetWorker: NSObject, URLSessionDelegate {
                     }
                 }
             }.resume()
-
+            
         }
     }
-
     
-    public func refreshAppKey(auth: AppAuth, completion: (() -> ())? = nil) {
+    public func refreshAppKey(completion: (() -> ())? = nil) {
         
         
         let result = isSSLHooked()
@@ -667,8 +685,25 @@ public class NetWorker: NSObject, URLSessionDelegate {
             print("SSL function is not hooked.")
         }
         
+        //        if self.checkSecurityHooking() {
+        //            let alert = UIAlertController(title: "Alert!", message: "Your device is not secured", preferredStyle: .alert)
+        //            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: {
+        //                action in
+        //               exit(0)
+        //            }))
+        //
+        //            guard let vc = UIApplication.shared.keyWindow?.rootViewController else {
+        //                return
+        //            }
+        //
+        //            vc.present(alert, animated: true)
+        //            return
+        //        }
+        
+        let auth = OneAppAuth.getKey
+        
         let url = auth.fullURL
-        let method = "GET" // Assuming getKey is always GET based on getMethod in OneAppAuth
+        let method = auth.getMethod
         let headers = auth.headers
         
         var request = URLRequest(url: url)
@@ -689,12 +724,12 @@ public class NetWorker: NSObject, URLSessionDelegate {
                     if let httpResponse = response as? HTTPURLResponse {
                         print(httpResponse.statusCode)
                         if httpResponse.statusCode == 401 {
-                                if !NetWorker.isSessionExpired{
-                                    NetWorker.isSessionExpired = true
-                                    NetWorker.sessionID = ""
-                                    AnalyticsUtilites.shared.sessionId = ""
-                                    self.sessionTimeout()
-                                }
+                            if !NetWorker.isSessionExpired{
+                                NetWorker.isSessionExpired = true
+                                NetWorker.sessionID = ""
+                                AnalyticsUtilites.shared.sessionId = ""
+                                self.sessionTimeout()
+                            }
                         }
                     }
                     
@@ -710,7 +745,6 @@ public class NetWorker: NSObject, URLSessionDelegate {
             
         }.resume()
     }
-
     /*
      public func callAPIService <T: Codable> (type: Auth, completion: @escaping (T?, Result<Moya.Response, MoyaError>) -> Void) {
      
@@ -807,7 +841,7 @@ public class NetWorker: NSObject, URLSessionDelegate {
             return OneAppAuth.getUserProfile(loginID: loginID)
         case .getUserProfileV2(loginID: let loginID):
             return OneAppAuth.getUserProfileV2(loginID: loginID)
-
+            
         case .getUserRole:
             return OneAppAuth.getUserRole
         case .getUserTerminalList(let tids, let mids, let cids, let cities, let locations):
@@ -878,8 +912,8 @@ public class NetWorker: NSObject, URLSessionDelegate {
             return OneAppAuth.getStoreFeedbackComments(tidList: tidList, startDate: startDate, endDate: endDate)
         case .getTransactionReport(tidList: let tidList, startDate: let startDate, endDate: let endDate, sendEmail: let sendEmail):
             return OneAppAuth.getTransactionReport(tidList: tidList, startDate: startDate, endDate: endDate, sendEmail: sendEmail)
-    //    case .generateTransactionReport(tidList: let tidList, startDate: let startDate, endDate: let endDate, sendEmail: let sendEmail, startHour: let startHour, endHour: let endHour, paymentType: let paymentType, transactionStates: let transactionStates):
-    //        return OneAppAuth.generateTransactionReport(tidList: tidList, startDate: startDate, endDate: endDate, sendEmail: sendEmail, startHour: startHour, endHour: endHour, paymentType: paymentType, transactionStates: transactionStates)
+            //    case .generateTransactionReport(tidList: let tidList, startDate: let startDate, endDate: let endDate, sendEmail: let sendEmail, startHour: let startHour, endHour: let endHour, paymentType: let paymentType, transactionStates: let transactionStates):
+            //        return OneAppAuth.generateTransactionReport(tidList: tidList, startDate: startDate, endDate: endDate, sendEmail: sendEmail, startHour: startHour, endHour: endHour, paymentType: paymentType, transactionStates: transactionStates)
         case .loyalty(mobile: let mobile, terminalId: let terminalId):
             return OneAppAuth.loyalty(mobile: mobile, terminalId: terminalId)
         case .getCustomer(customerMobile: let customerMobile, tid: let tid):
@@ -968,8 +1002,8 @@ public class NetWorker: NSObject, URLSessionDelegate {
             return OneAppAuth.panAccountDetails(loginId: loginId, lastSixDigitAccountNo: lastSixDigitAccountNo)
         case .getSettlementReport(tidList: let tidList, startDate: let startDate, endDate: let endDate, sendEmail: let sendEmail):
             return OneAppAuth.getSettlementReport(tidList: tidList, startDate: startDate, endDate: endDate, sendEmail: sendEmail)
-//        case .generateSettlementReport(tidList: let tidList, startDate: let startDate, endDate: let endDate, sendEmail: let sendEmail, startHour: let startHour, endHour: let endHour):
-//            return OneAppAuth.generateSettlementReport(tidList: tidList, startDate: startDate, endDate: endDate, sendEmail: sendEmail, startHour: startHour, endHour: endHour)
+            //        case .generateSettlementReport(tidList: let tidList, startDate: let startDate, endDate: let endDate, sendEmail: let sendEmail, startHour: let startHour, endHour: let endHour):
+            //            return OneAppAuth.generateSettlementReport(tidList: tidList, startDate: startDate, endDate: endDate, sendEmail: sendEmail, startHour: startHour, endHour: endHour)
         case .macSaveCampaignDetails(id: let id,campaignType: let campaignType, campaignStatus: let campaignStatus, heading: let heading, subHeading: let subHeading, campaignName: let campaignName, description: let description, otherDetails: let otherDetails, campaignFormat: let campaignFormat, caption: let caption, campaignTemplateType: let campaignTemplateType, scheduledDate: let scheduledDate, campaignMetaDetails: let campaignMetaDetails, backgroundImage: let backgroundImage, foregroundImage: let foregroundImage):
             return OneAppAuth.macSaveCampaignDetails(id: id,campaignType: campaignType, campaignStatus: campaignStatus, heading: heading, subHeading: subHeading, campaignName: campaignName, description: description, otherDetails: otherDetails, campaignFormat: campaignFormat, caption: caption, campaignTemplateType: campaignTemplateType, scheduledDate: scheduledDate, campaignMetaDetails: campaignMetaDetails, backgroundImage: backgroundImage, foregroundImage: foregroundImage)
             
@@ -997,7 +1031,7 @@ public class NetWorker: NSObject, URLSessionDelegate {
             return OneAppAuth.oarGetBannerTemplate
         case .oarGetBannerImages(fileType: let fileType, terminalId: let terminalId):
             return OneAppAuth.oarGetBannerImages(fileType: fileType, terminalId: terminalId)
-
+            
         case .oarDashboardInfo(lowerTimeLimit: let lowerTimeLimit, upperTimeLimit: let upperTimeLimit):
             return OneAppAuth.oarDashboardInfo(lowerTimeLimit: lowerTimeLimit, upperTimeLimit: upperTimeLimit)
         case .oarGetAggregationData(fromDate: let fromDate, toDate: let toDate):
@@ -1056,7 +1090,7 @@ public class NetWorker: NSObject, URLSessionDelegate {
             return OneAppAuth.generateCustomTransactionReport(tidList: tidList, startDate: startDate, endDate: endDate, startHour: startHour, endHour: endHour, paymentType: paymentType, transactionStates: transactionStates, sendEmail: sendEmail)
         case .generateCustomSettlementReport(tidList: let tidList, startDate: let startDate, endDate: let endDate, startHour: let startHour, endHour: let endHour, paymentType: let paymentType, transactionStates: let transactionStates, sendEmail: let sendEmail):
             return OneAppAuth.generateCustomSettlementReport(tidList: tidList, startDate: startDate, endDate: endDate, startHour: startHour, endHour: endHour, paymentType: paymentType, transactionStates: transactionStates, sendEmail: sendEmail)
-
+            
         case .bankProductHistory(terminalIds: let terminalIds, endDate: let endDate, startDate: let startDate, productName: let productName):
             return OneAppAuth.bankProductHistory(terminalIds: terminalIds, endDate: endDate, startDate: startDate, productName: productName)
         case .bankProductEligibility(terminalIds: let terminalIds, productName: let productName):
@@ -1093,7 +1127,7 @@ public class NetWorker: NSObject, URLSessionDelegate {
         case .emiPaymentVerifyOtp(emiTransactionId: let emiTransactionId,otp: let otp):
             return OneAppAuth.emiPaymentVerifyOtp(emiTransactionId: emiTransactionId, otp: otp)
         case .emiGenerateCustomerUrl(customerId: let customerId,terminalId: let terminalId,transactionAmount: let transactionAmount):
-           return OneAppAuth.emiGenerateCustomerUrl(customerId: customerId, terminalId: terminalId, transactionAmount: transactionAmount)
+            return OneAppAuth.emiGenerateCustomerUrl(customerId: customerId, terminalId: terminalId, transactionAmount: transactionAmount)
         case .bankEMIResendOTP(requestId: let requestId):
             return OneAppAuth.bankEMIResendOTP(requestId: requestId)
             
@@ -1113,7 +1147,7 @@ public class NetWorker: NSObject, URLSessionDelegate {
             return OneAppAuth.checkFileStatus(requestId: requestId)
         case .sendEmail(requestId: let requestId):
             return OneAppAuth.sendEmail(requestId: requestId)
-
+            
         case .getPreferencesSMSNotificationList(terminalList: let terminalList):
             return OneAppAuth.getPreferencesSMSNotificationList(terminalList: terminalList)
         case .getPreferencesSMSNotificationHistory(pageNo: let pageNo, pageSize: let pageSize, terminalList: let terminalList):
@@ -1182,7 +1216,7 @@ public class NetWorker: NSObject, URLSessionDelegate {
             return OneAppAuth.getReportEmail(tids: tids,userMobile: userMobile)
         case .editReportEmail(tid: let tid, reportEmail: let reportEmail, userMobile: let userMobile):
             return OneAppAuth.editReportEmail(tid: tid, reportEmail: reportEmail, userMobile: userMobile)
-
+            
         case .insuranceCyberProduct(terminalId: let terminalId):
             return OneAppAuth.insuranceCyberProduct(terminalId: terminalId)
         case .cyberKnowMorw(applicationId: let applicationId):
@@ -1247,8 +1281,8 @@ func checkInterwebs() -> Bool {
 }
 func isConnectionAvailable() -> Bool {
     let reachability = try! Reachability()
-
+    
     let networkStatus = reachability.connection
-
+    
     return !(networkStatus == .unavailable)
 }

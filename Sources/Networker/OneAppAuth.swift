@@ -4,9 +4,7 @@
 //
 
 import Foundation
-#if canImport(UIKit)
 import UIKit
-#endif
 import AVFoundation
 
 public enum AuthCustome {
@@ -27,15 +25,15 @@ public enum AuthCustome {
     case getUserProfile(loginID: String)
     case getUserProfileV2(loginID: String)
 
-	case getUserRole
-	case getUserTerminalList(tids: [String], mids: [String], cids: [String], cities: [String], locations: [String])
-	case paymentSalesCardHDFC(terminalID: [String], salesCount: String, startDate: String, endDate: String)
-	case paymentSalesCardMintoak(terminalID: [String], salesCount: String, startDate: String, endDate: String)
-	case payementModeAndLoyaltyAPI(terminalID: String, salesCount: String, startDate: String, endDate: String)
-	case cashPay(terminalId: String, amount: String, description: String, appTxnid: String, plCustId: String, customerMobileNumber: String, redemptionId: String)
-	case QRPay(terminalId: String, amount: String, description: String, customerMobileNumber: String, appTxnid: String, pgId: String, plCustId: String, redemptionId: String)
-	case LinkPay(terminalId: String, amount: String, description: String, customerMobileNumber: String, appTxnid: String, pgId: String, plCustId: String, redemptionId: String)
-	case UPICollect(terminalId: String, amount: String, description: String, customerMobileNumber: String, payerVpa: String, appTxnid: String, pgId: String, plCustId: String, redemptionId: String)
+    case getUserRole
+    case getUserTerminalList(tids: [String], mids: [String], cids: [String], cities: [String], locations: [String])
+    case paymentSalesCardHDFC(terminalID: [String], salesCount: String, startDate: String, endDate: String)
+    case paymentSalesCardMintoak(terminalID: [String], salesCount: String, startDate: String, endDate: String)
+    case payementModeAndLoyaltyAPI(terminalID: String, salesCount: String, startDate: String, endDate: String)
+    case cashPay(terminalId: String, amount: String, description: String, appTxnid: String, plCustId: String, customerMobileNumber: String, redemptionId: String)
+    case QRPay(terminalId: String, amount: String, description: String, customerMobileNumber: String, appTxnid: String, pgId: String, plCustId: String, redemptionId: String)
+    case LinkPay(terminalId: String, amount: String, description: String, customerMobileNumber: String, appTxnid: String, pgId: String, plCustId: String, redemptionId: String)
+    case UPICollect(terminalId: String, amount: String, description: String, customerMobileNumber: String, payerVpa: String, appTxnid: String, pgId: String, plCustId: String, redemptionId: String)
     case UPILink(terminalId: String, plCustId: String, amount: String, description: String, customerMobileNumber: String, appTxnid: String, pgId: String, medium: String, redemptionId: String)
     case helpDesk
     case getHelpDeskDetails(terminalID: String)
@@ -318,7 +316,24 @@ extension Swiftie {
     }
 }
 
-// No changes needed here, just removing the definitions at the end of the file.
+protocol AppAuth {
+    var encryptionType: EncryptionType { get }
+    
+    var isRequestEncrypted: Bool { get }
+    var baseURL: URL { get }
+    var path: String { get }
+    var fullURL: URL { get }
+    var method: String { get }
+    var sampleData: Data { get }
+    var params: [String : Any] { get }
+    var params1: [ Any ] { get }
+    var headers: [String : String]? { get }
+}
+
+enum EncryptionType {
+    case AES
+    case RSA_AES
+}
 
 enum OneAppAuth: AppAuth {
     
@@ -335,14 +350,14 @@ enum OneAppAuth: AppAuth {
     case modifyUser(userMobile: String, userName: String, userEmailID: String, accountStatus: Int)
     case addUserRole(userMobile: String, tidList: [(tid: String, role: String)])
     case modifyUserRole(userMobile: String, tidList: [(tid: String, role: String, userState: String)])
-	case getAPKUrl(appVersion: String)
-	case getUserProfile(loginID: String)
+    case getAPKUrl(appVersion: String)
+    case getUserProfile(loginID: String)
     case getUserProfileV2(loginID: String)
-	case getUserRole
-	case getUserTerminalList(tids: [String], mids: [String], cids: [String], cities: [String], locations: [String])
-	case paymentSalesCardHDFC(terminalID: [String], salesCount: String, startDate: String, endDate: String)
-	case paymentSalesCardMintoak(terminalID: [String], salesCount: String, startDate: String, endDate: String)
-	case payementModeAndLoyaltyAPI(terminalID: String, salesCount: String, startDate: String, endDate: String)
+    case getUserRole
+    case getUserTerminalList(tids: [String], mids: [String], cids: [String], cities: [String], locations: [String])
+    case paymentSalesCardHDFC(terminalID: [String], salesCount: String, startDate: String, endDate: String)
+    case paymentSalesCardMintoak(terminalID: [String], salesCount: String, startDate: String, endDate: String)
+    case payementModeAndLoyaltyAPI(terminalID: String, salesCount: String, startDate: String, endDate: String)
     case cashPay(terminalId:String, amount: String, description: String, appTxnid: String, plCustId: String, customerMobileNumber:String, redemptionId: String)
     case QRPay(terminalId: String, amount: String, description: String, customerMobileNumber: String, appTxnid: String, pgId: String, plCustId: String, redemptionId: String)
     case LinkPay(terminalId: String, amount: String, description: String, customerMobileNumber: String, appTxnid: String, pgId: String, plCustId: String, redemptionId: String)
